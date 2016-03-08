@@ -91,7 +91,184 @@ public class HandTest {
 		//	This statement should throw a HandException
 		h = Hand.EvaluateHand(h);	
 	}	
-			
+	
+	@Test 
+ 	public void TestIsHandRoyalFlush() { 
+ 
+ 		HandScore hs = new HandScore(); 
+ 		ArrayList<Card> HandRoyalFlush = new ArrayList<Card>(); 
+ 		HandRoyalFlush.add(new Card(eSuit.SPADES, eRank.ACE, 0)); 
+ 		HandRoyalFlush.add(new Card(eSuit.SPADES, eRank.KING, 0)); 
+ 		HandRoyalFlush.add(new Card(eSuit.SPADES, eRank.QUEEN, 0)); 
+ 		HandRoyalFlush.add(new Card(eSuit.SPADES, eRank.JACK, 0)); 
+ 		HandRoyalFlush.add(new Card(eSuit.SPADES, eRank.TEN, 0)); 
+ 
+ 		Hand h = new Hand(); 
+ 		h = SetHand(HandRoyalFlush, h); 
+ 
+ 		boolean bActualIsHandRoyalFlush = Hand.isHandRoyalFlush(h, hs); 
+ 		boolean bExpectedIsHandRoyalFlush = true; 
+ 
+ 		// Did this evaluate to Four of a Kind? 
+ 		assertEquals(bActualIsHandRoyalFlush, bExpectedIsHandRoyalFlush); 
+ 		// Was the four of a kind an Ace? 
+ 		assertEquals(hs.getHiHand(), eRank.ACE.getiRankNbr()); 
+ 		// FOAK has one kicker. Was it a Club? 
+ 		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteSuit(), eSuit.SPADES); 
+ 		// FOAK has one kicker. Was it a King? 
+ 		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.ACE); 
+ 	} 
+ 	@Test 
+ 	public void TestHandRoyalFlushEval() { 
+ 
+ 		ArrayList<Card> HandRoyalFlush = new ArrayList<Card>(); 
+ 		HandRoyalFlush.add(new Card(eSuit.SPADES, eRank.ACE, 0)); 
+ 		HandRoyalFlush.add(new Card(eSuit.SPADES, eRank.KING, 0)); 
+ 		HandRoyalFlush.add(new Card(eSuit.SPADES, eRank.QUEEN, 0)); 
+ 		HandRoyalFlush.add(new Card(eSuit.SPADES, eRank.JACK, 0)); 
+ 		HandRoyalFlush.add(new Card(eSuit.SPADES, eRank.TEN, 0)); 
+ 
+ 		Hand h = new Hand(); 
+ 		h = SetHand(HandRoyalFlush, h); 
+ 
+ 		try { 
+ 			h = Hand.EvaluateHand(h); 
+ 		} catch (HandException e) { 
+ 			e.printStackTrace(); 
+ 			fail("TestHandRoyalFlush failed"); 
+ 		} 
+ 		HandScore hs = h.getHandScore(); 
+ 		boolean bActualIsHandRoyalFlush = Hand.isHandRoyalFlush(h, hs); 
+ 		boolean bExpectedIsHandRoyalFlush = true; 
+
+ 		// Did this evaluate to Four of a Kind? 
+ 		assertEquals(bActualIsHandRoyalFlush, bExpectedIsHandRoyalFlush); 
+ 		// Was the four of a kind an Ace? 
+ 		assertEquals(hs.getHiHand(), eRank.ACE.getiRankNbr()); 
+ 		// FOAK has one kicker. Was it a Club? 
+ 		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteSuit(), eSuit.SPADES); 
+ 		// FOAK has one kicker. Was it a King? 
+ 		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.ACE); 
+ 	} 
+ 	
+	@Test 
+ 	public void TestIsHandStraightFlush() { 
+ 
+ 		HandScore hs = new HandScore(); 
+ 		ArrayList<Card> HandStraightFlush = new ArrayList<Card>(); 
+ 		HandStraightFlush.add(new Card(eSuit.SPADES, eRank.NINE, 0)); 
+ 		HandStraightFlush.add(new Card(eSuit.SPADES, eRank.EIGHT, 0)); 
+ 		HandStraightFlush.add(new Card(eSuit.SPADES, eRank.SEVEN, 0)); 
+ 		HandStraightFlush.add(new Card(eSuit.SPADES, eRank.SIX, 0)); 
+ 		HandStraightFlush.add(new Card(eSuit.SPADES, eRank.FIVE, 0)); 
+ 
+ 		Hand h = new Hand(); 
+ 		h = SetHand(HandStraightFlush, h); 
+ 
+ 		boolean bActualIsHandStraightFlush = Hand.isHandStraight(h, hs); 
+ 		boolean bExpectedIsHandStraightFlush = true; 
+ 
+ 		// Did this evaluate to Four of a Kind? 
+ 		assertEquals(bActualIsHandStraightFlush, bExpectedIsHandStraightFlush); 
+ 		// Was the four of a kind an Ace? 
+ 		assertEquals(hs.getHiHand(), eRank.NINE.getiRankNbr()); 
+ 		// FOAK has one kicker. Was it a Club? 
+ 		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteSuit(), eSuit.SPADES); 
+ 		// FOAK has one kicker. Was it a King? 
+ 		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.NINE); 
+ 	} 
+ 	@Test 
+ 	public void TestHandStraightFlushEval() { 
+ 
+ 		ArrayList<Card> HandStraightFlush = new ArrayList<Card>(); 
+ 		HandStraightFlush.add(new Card(eSuit.SPADES, eRank.NINE, 0)); 
+ 		HandStraightFlush.add(new Card(eSuit.SPADES, eRank.EIGHT, 0)); 
+ 		HandStraightFlush.add(new Card(eSuit.SPADES, eRank.SEVEN, 0)); 
+ 		HandStraightFlush.add(new Card(eSuit.SPADES, eRank.SIX, 0)); 
+ 		HandStraightFlush.add(new Card(eSuit.SPADES, eRank.FIVE, 0)); 
+ 
+ 		Hand h = new Hand(); 
+ 		h = SetHand(HandStraightFlush, h); 
+ 
+ 		try { 
+ 			h = Hand.EvaluateHand(h); 
+ 		} catch (HandException e) { 
+ 			e.printStackTrace(); 
+ 			fail("TestHandStraightFlush failed"); 
+ 		} 
+ 		HandScore hs = h.getHandScore(); 
+ 		boolean bActualIsHandStraightFlush = Hand.isHandStraightFlush(h, hs); 
+ 		boolean bExpectedIsHandStraightFlush = true; 
+
+ 		// Did this evaluate to Four of a Kind? 
+ 		assertEquals(bActualIsHandStraightFlush, bExpectedIsHandStraightFlush); 
+ 		// Was the four of a kind an Ace? 
+ 		assertEquals(hs.getHiHand(), eRank.NINE.getiRankNbr()); 
+ 		// FOAK has one kicker. Was it a Club? 
+ 		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteSuit(), eSuit.SPADES); 
+ 		// FOAK has one kicker. Was it a King? 
+ 		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.NINE); 
+ 	} 
+ 	
+	@Test 
+ 	public void TestIsHandPair() { 
+ 
+ 		HandScore hs = new HandScore(); 
+ 		ArrayList<Card> HandPair = new ArrayList<Card>(); 
+ 		HandPair.add(new Card(eSuit.SPADES, eRank.NINE, 0)); 
+ 		HandPair.add(new Card(eSuit.SPADES, eRank.FOUR, 0)); 
+ 		HandPair.add(new Card(eSuit.SPADES, eRank.FOUR, 0)); 
+ 		HandPair.add(new Card(eSuit.SPADES, eRank.SEVEN, 0)); 
+ 		HandPair.add(new Card(eSuit.SPADES, eRank.SIX, 0)); 
+ 
+ 		Hand h = new Hand(); 
+ 		h = SetHand(HandPair, h); 
+ 
+ 		boolean bActualIsHandPair = Hand.isHandPair(h, hs); 
+ 		boolean bExpectedIsHandPair = true; 
+ 
+ 		// Did this evaluate to Four of a Kind? 
+ 		assertEquals(bActualIsHandPair, bExpectedIsHandPair); 
+ 		// Was the four of a kind an Ace? 
+ 		assertEquals(hs.getHiHand(), eRank.FOUR.getiRankNbr()); 
+ 		// FOAK has one kicker. Was it a Club? 
+ 		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteSuit(), eSuit.SPADES); 
+ 		// FOAK has one kicker. Was it a King? 
+ 		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.NINE); 
+ 	} 
+ 	@Test 
+ 	public void TestHandPairEval() { 
+ 
+ 		ArrayList<Card> HandPair = new ArrayList<Card>(); 
+ 		HandPair.add(new Card(eSuit.SPADES, eRank.NINE, 0)); 
+ 		HandPair.add(new Card(eSuit.SPADES, eRank.FOUR, 0)); 
+ 		HandPair.add(new Card(eSuit.SPADES, eRank.FOUR, 0)); 
+ 		HandPair.add(new Card(eSuit.SPADES, eRank.SEVEN, 0)); 
+ 		HandPair.add(new Card(eSuit.SPADES, eRank.SIX, 0)); 
+ 
+ 		Hand h = new Hand(); 
+ 		h = SetHand(HandPair, h); 
+ 
+ 		try { 
+ 			h = Hand.EvaluateHand(h); 
+ 		} catch (HandException e) { 
+ 			e.printStackTrace(); 
+ 			fail("TestHandPair failed"); 
+ 		} 
+ 		HandScore hs = h.getHandScore(); 
+ 		boolean bActualIsHandPair = Hand.isHandPair(h, hs); 
+ 		boolean bExpectedIsHandPair = true; 
+
+ 		// Did this evaluate to Four of a Kind? 
+ 		assertEquals(bActualIsHandPair, bExpectedIsHandPair); 
+ 		// Was the four of a kind an Ace? 
+ 		assertEquals(hs.getHiHand(), eRank.FOUR.getiRankNbr()); 
+ 		// FOAK has one kicker. Was it a Club? 
+ 		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteSuit(), eSuit.SPADES); 
+ 		// FOAK has one kicker. Was it a King? 
+ 		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.NINE); 
+ 	} 
+ 	
 	@Test
 	public void TestFourOfAKind() {
 		
@@ -118,7 +295,6 @@ public class HandTest {
 		//	FOAK has one kicker.  Was it a King?		
 		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.KING);
 	}
-	
 	
 	public void TestFourOfAKindEval() {
 		
@@ -178,6 +354,7 @@ public class HandTest {
 		// FOAK has one kicker. Was it a King?
 		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.ACE);
 	}
+	
 	@Test
 	public void TestFullHouseEval() {
 
@@ -241,7 +418,6 @@ public class HandTest {
 	@Test 
  	public void TestHandTwoPairEval() { 
  
- 
  		ArrayList<Card> TwoPair = new ArrayList<Card>(); 
  		TwoPair.add(new Card(eSuit.CLUBS, eRank.FIVE, 0)); 
  		TwoPair.add(new Card(eSuit.HEARTS, eRank.FIVE, 0)); 
@@ -249,10 +425,8 @@ public class HandTest {
  		TwoPair.add(new Card(eSuit.SPADES, eRank.THREE, 0)); 
  		TwoPair.add(new Card(eSuit.CLUBS, eRank.THREE, 0)); 
  
- 
  		Hand h = new Hand(); 
  		h = SetHand(TwoPair, h); 
- 
  
  		try { 
  			h = Hand.EvaluateHand(h); 
@@ -263,7 +437,6 @@ public class HandTest {
  		HandScore hs = h.getHandScore(); 
  		boolean bActualIsHandTwoPair = Hand.isHandTwoPair(h, hs); 
  		boolean bExpectedIsHandTwoPair = true; 
- 
  
  		// Did this evaluate to Four of a Kind? 
  		assertEquals(bActualIsHandTwoPair, bExpectedIsHandTwoPair); 
@@ -278,7 +451,6 @@ public class HandTest {
 	@Test 
  	public void TestIsHandFlush() { 
  
- 
  		HandScore hs = new HandScore(); 
  		ArrayList<Card> HandFlush = new ArrayList<Card>(); 
  		HandFlush.add(new Card(eSuit.HEARTS, eRank.ACE, 0)); 
@@ -287,14 +459,11 @@ public class HandTest {
  		HandFlush.add(new Card(eSuit.HEARTS, eRank.FOUR, 0)); 
  		HandFlush.add(new Card(eSuit.HEARTS, eRank.TWO, 0)); 
  
- 
  		Hand h = new Hand(); 
  		h = SetHand(HandFlush, h); 
  
- 
  		boolean bActualIsHandFlush = Hand.isHandFlush(h, hs); 
  		boolean bExpectedIsHandFlush = true; 
- 
  
  		// Did this evaluate to Four of a Kind? 
  		assertEquals(bActualIsHandFlush, bExpectedIsHandFlush); 
@@ -305,9 +474,9 @@ public class HandTest {
  		// FOAK has one kicker. Was it a King? 
  		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.ACE); 
  	} 
+	
  	@Test 
  	public void TestHandFlushEval() { 
- 
  
  		ArrayList<Card> HandFlush = new ArrayList<Card>(); 
  		HandFlush.add(new Card(eSuit.HEARTS, eRank.ACE, 0)); 
@@ -316,10 +485,8 @@ public class HandTest {
  		HandFlush.add(new Card(eSuit.HEARTS, eRank.FOUR, 0)); 
  		HandFlush.add(new Card(eSuit.HEARTS, eRank.TWO, 0)); 
  
- 
  		Hand h = new Hand(); 
  		h = SetHand(HandFlush, h); 
- 
  
  		try { 
  			h = Hand.EvaluateHand(h); 
@@ -331,7 +498,6 @@ public class HandTest {
  		boolean bActualIsHandFlush = Hand.isHandFlush(h, hs); 
  		boolean bExpectedIsHandFlush = true; 
  
- 
  		// Did this evaluate to Four of a Kind? 
  		assertEquals(bActualIsHandFlush, bExpectedIsHandFlush); 
  		// Was the four of a kind an Ace? 
@@ -341,9 +507,9 @@ public class HandTest {
  		// FOAK has one kicker. Was it a King? 
  		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.ACE); 
  	} 
+ 	
  	@Test 
  	public void TestIsHandStraight() { 
- 
  
  		HandScore hs = new HandScore(); 
  		ArrayList<Card> HandStraight = new ArrayList<Card>(); 
@@ -353,14 +519,11 @@ public class HandTest {
  		HandStraight.add(new Card(eSuit.DIAMONDS, eRank.EIGHT, 0)); 
  		HandStraight.add(new Card(eSuit.HEARTS, eRank.SEVEN, 0)); 
  
- 
  		Hand h = new Hand(); 
  		h = SetHand(HandStraight, h); 
  
- 
  		boolean bActualIsHandStraight = Hand.isHandStraight(h, hs); 
  		boolean bExpectedIsHandStraight = true; 
- 
  
  		// Did this evaluate to Four of a Kind? 
  		assertEquals(bActualIsHandStraight, bExpectedIsHandStraight); 
@@ -371,9 +534,9 @@ public class HandTest {
  		// FOAK has one kicker. Was it a King? 
  		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.JACK); 
  	} 
+ 	
  	@Test 
  	public void TestHandStraightEval() { 
- 
  
  		ArrayList<Card> HandStraight = new ArrayList<Card>(); 
  		HandStraight.add(new Card(eSuit.HEARTS, eRank.JACK, 0)); 
@@ -382,10 +545,8 @@ public class HandTest {
  		HandStraight.add(new Card(eSuit.DIAMONDS, eRank.EIGHT, 0)); 
  		HandStraight.add(new Card(eSuit.HEARTS, eRank.SEVEN, 0)); 
  
- 
  		Hand h = new Hand(); 
  		h = SetHand(HandStraight, h); 
- 
  
  		try { 
  			h = Hand.EvaluateHand(h); 
@@ -397,7 +558,6 @@ public class HandTest {
  		boolean bActualIsHandStraight = Hand.isHandStraight(h, hs); 
  		boolean bExpectedIsHandStraight = true; 
  
- 
  		// Did this evaluate to Four of a Kind? 
  		assertEquals(bActualIsHandStraight, bExpectedIsHandStraight); 
  		// Was the four of a kind an Ace? 
@@ -407,9 +567,9 @@ public class HandTest {
  		// FOAK has one kicker. Was it a King? 
  		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.JACK); 
  	} 
+ 	
  	@Test 
  	public void TestIsHandThreeOfAKind() { 
- 
  
  		HandScore hs = new HandScore(); 
  		ArrayList<Card> HandThreeOfAKind = new ArrayList<Card>(); 
@@ -419,14 +579,11 @@ public class HandTest {
  		HandThreeOfAKind.add(new Card(eSuit.DIAMONDS, eRank.THREE, 0)); 
  		HandThreeOfAKind.add(new Card(eSuit.HEARTS, eRank.TWO, 0)); 
  
- 
  		Hand h = new Hand(); 
  		h = SetHand(HandThreeOfAKind, h); 
  
- 
  		boolean bActualIsHandThreeOfAKind = Hand.isHandThreeOfAKind(h, hs); 
  		boolean bExpectedIsHandThreeOfAKind = true; 
- 
  
  		// Did this evaluate to Four of a Kind? 
  		assertEquals(bActualIsHandThreeOfAKind, bExpectedIsHandThreeOfAKind); 
@@ -437,9 +594,9 @@ public class HandTest {
  		// FOAK has one kicker. Was it a King? 
 		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.THREE); 
  	} 
+ 	
  	@Test 
- 	public void TestHandThreeOfAKingEval() { 
- 
+ 	public void TestHandThreeOfAKindEval() { 
  
  		ArrayList<Card> HandThreeOfAKind = new ArrayList<Card>(); 
  		HandThreeOfAKind.add(new Card(eSuit.HEARTS, eRank.NINE, 0)); 
@@ -448,10 +605,8 @@ public class HandTest {
  		HandThreeOfAKind.add(new Card(eSuit.DIAMONDS, eRank.THREE, 0)); 
  		HandThreeOfAKind.add(new Card(eSuit.HEARTS, eRank.TWO, 0)); 
  
- 
  		Hand h = new Hand(); 
  		h = SetHand(HandThreeOfAKind, h); 
- 
  
  		try { 
  			h = Hand.EvaluateHand(h); 
@@ -462,7 +617,6 @@ public class HandTest {
  		HandScore hs = h.getHandScore(); 
  		boolean bActualIsHandThreeOfAKind = Hand.isHandThreeOfAKind(h, hs); 
  		boolean bExpectedIsHandThreeOfAKind = true; 
- 
  
  		// Did this evaluate to Four of a Kind? 
  		assertEquals(bActualIsHandThreeOfAKind, bExpectedIsHandThreeOfAKind); 
@@ -477,7 +631,6 @@ public class HandTest {
  	@Test 
  	public void TestIsHandHighCard() { 
  
- 
  		HandScore hs = new HandScore(); 
  		ArrayList<Card> HandHighCard = new ArrayList<Card>(); 
  		HandHighCard.add(new Card(eSuit.SPADES, eRank.QUEEN, 0)); 
@@ -486,14 +639,11 @@ public class HandTest {
  		HandHighCard.add(new Card(eSuit.DIAMONDS, eRank.SIX, 0)); 
  		HandHighCard.add(new Card(eSuit.HEARTS, eRank.THREE, 0)); 
  
- 
  		Hand h = new Hand(); 
  		h = SetHand(HandHighCard, h); 
  
- 
  		boolean bActualIsHandHighCard = Hand.isHandHighCard(h, hs); 
  		boolean bExpectedIsHandHighCard = true; 
- 
  
  		// Did this evaluate to Four of a Kind? 
  		assertEquals(bActualIsHandHighCard, bExpectedIsHandHighCard); 
@@ -504,9 +654,9 @@ public class HandTest {
  		// FOAK has one kicker. Was it a King? 
  		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.QUEEN); 
  	} 
+ 	
  	@Test 
  	public void TestHandHighCardEval() { 
- 
  
  		ArrayList<Card> HandHighCard = new ArrayList<Card>(); 
  		HandHighCard.add(new Card(eSuit.SPADES, eRank.QUEEN, 0)); 
@@ -515,10 +665,8 @@ public class HandTest {
  		HandHighCard.add(new Card(eSuit.DIAMONDS, eRank.SIX, 0)); 
  		HandHighCard.add(new Card(eSuit.HEARTS, eRank.THREE, 0)); 
  
- 
  		Hand h = new Hand(); 
  		h = SetHand(HandHighCard, h); 
- 
  
  		try { 
  			h = Hand.EvaluateHand(h); 
@@ -530,7 +678,6 @@ public class HandTest {
  		boolean bActualIsHandHighCard = Hand.isHandHighCard(h, hs); 
  		boolean bExpectedIsHandHighCard = true; 
  
- 
  		// Did this evaluate to Four of a Kind? 
  		assertEquals(bActualIsHandHighCard, bExpectedIsHandHighCard); 
  		// Was the four of a kind an Ace? 
@@ -539,5 +686,5 @@ public class HandTest {
  		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteSuit(), eSuit.SPADES); 
  		// FOAK has one kicker. Was it a King? 
  		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.QUEEN); 
- 	} 
+ 	} 	
 } 
