@@ -126,20 +126,78 @@ public class Hand {
 	}
 
 	public static boolean isHandFiveOfAKind(Hand h, HandScore hs) {
-		hs.setHandStrength(eHandStrength.FiveOfAKind.getHandStrength());
+		//any possibility being true
+		boolean bHandCheck = false;
 		
-		return false;
+		if (h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank() == 
+				h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteRank()) 
+		{
+			//if... becomes true 
+			bHandCheck =true;
+			hs.setHandStrength(eHandStrength.FiveOfAKind.getHandStrength());
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr());
+			hs.setLoHand(0);
+			ArrayList<Card> kickers = new ArrayList<Card>();
+			kickers.add(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()));
+			hs.setKickers(kickers);
+			
+		} else if (h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank() == 
+				h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteRank()) 
+		{
+			bHandCheck =true;
+			hs.setHandStrength(eHandStrength.FiveOfAKind.getHandStrength());
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank().getiRankNbr());
+			hs.setLoHand(0);
+			ArrayList<Card> kickers = new ArrayList<Card>();
+			kickers.add(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()));
+			hs.setKickers(kickers);
+		}
+		
+		return bHandCheck;
+
 	}
 
 	public static boolean isHandRoyalFlush(Hand h, HandScore hs) {
-		hs.setHandStrength(eHandStrength.RoyalFlush.getHandStrength());
-		return false;
+		boolean bHandCheck = false;
+		
+		if (isHandStraightFlush(h,hs) && h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).
+				geteRank()== eRank.ACE) 
+		{
+			//if... becomes true 
+			bHandCheck =true;
+			hs.setHandStrength(eHandStrength.RoyalFlush.getHandStrength());
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr());
+			hs.setLoHand(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteRank().getiRankNbr());
+			ArrayList<Card> kickers = new ArrayList<Card>();
+			kickers.add(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()));
+			kickers.add(h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()));
+			kickers.add(h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()));
+			hs.setKickers(kickers);
+		}
+		return bHandCheck;
 	}
+		
 
 	public static boolean isHandStraightFlush(Hand h, HandScore hs) {
-		hs.setHandStrength(eHandStrength.StraightFlush.getHandStrength());
-		return false;
+		
+		boolean bHandCheck = false;
+		
+		if (isHandFlush(h,hs) && isHandStraight(h,hs)) 
+		{
+			//if... becomes true 
+			bHandCheck =true;
+			hs.setHandStrength(eHandStrength.StraightFlush.getHandStrength());
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr());
+			hs.setLoHand(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteRank().getiRankNbr());
+			ArrayList<Card> kickers = new ArrayList<Card>();
+			kickers.add(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()));
+			kickers.add(h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()));
+			kickers.add(h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()));
+			hs.setKickers(kickers);
+		}
+		return bHandCheck;
 	}
+
 
 	public static boolean isHandFourOfAKind(Hand h, HandScore hs) {
 		//any possibility being true
@@ -322,7 +380,7 @@ public class Hand {
 	
 		else if (((h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank() == h.getCardsInHand()
 			.get(eCardNo.ThirdCard.getCardNo()).geteRank())
-			&& (h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank() == h.getCardsInHand()
+			& (h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank() == h.getCardsInHand()
 					.get(eCardNo.FifthCard.getCardNo()).geteRank()))) {
 		
 		bHandCheck = true;
