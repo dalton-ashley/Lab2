@@ -140,19 +140,7 @@ public class Hand {
 			ArrayList<Card> kickers = new ArrayList<Card>();
 			kickers.add(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()));
 			hs.setKickers(kickers);
-			
-		} else if (h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank() == 
-				h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteRank()) 
-		{
-			bHandCheck =true;
-			hs.setHandStrength(eHandStrength.FiveOfAKind.getHandStrength());
-			hs.setHiHand(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank().getiRankNbr());
-			hs.setLoHand(0);
-			ArrayList<Card> kickers = new ArrayList<Card>();
-			kickers.add(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()));
-			hs.setKickers(kickers);
 		}
-		
 		return bHandCheck;
 
 	}
@@ -246,8 +234,9 @@ public class Hand {
 			hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr());
 			hs.setLoHand(h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank().getiRankNbr());
 			ArrayList<Card> kickers = new ArrayList<Card>();
+			kickers.add(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()));
+			kickers.add(h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()));
 			kickers.add(h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()));
-			kickers.add(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()));
 			hs.setKickers(kickers);
 			
 		} else if (h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank() == 
@@ -257,11 +246,12 @@ public class Hand {
 				
 				bHandCheck =true;
 				hs.setHandStrength(eHandStrength.FullHouse.getHandStrength());
-				hs.setHiHand(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank().getiRankNbr());
-				hs.setLoHand(0);
+				hs.setHiHand(h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank().getiRankNbr());
+				hs.setLoHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr());
 				ArrayList<Card> kickers = new ArrayList<Card>();
-				kickers.add(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()));
-				kickers.add(h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()));
+				kickers.add(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()));
+				kickers.add(h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()));
+				kickers.add(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()));
 				hs.setKickers(kickers);
 			}
 		}
@@ -342,7 +332,17 @@ public class Hand {
 			bHandCheck =true;
 			hs.setHandStrength(eHandStrength.ThreeOfAKind.getHandStrength());
 			hs.setHiHand(h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank().getiRankNbr());
-			hs.setLoHand(h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank().getiRankNbr());			
+			hs.setLoHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr());			
+			ArrayList<Card> kickers = new ArrayList<Card>();
+			kickers.add(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()));
+			hs.setKickers(kickers);
+		} else if (h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank() == 
+				h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank()) 
+		{
+			bHandCheck =true;
+			hs.setHandStrength(eHandStrength.ThreeOfAKind.getHandStrength());
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank().getiRankNbr());
+			hs.setLoHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr());			
 			ArrayList<Card> kickers = new ArrayList<Card>();
 			kickers.add(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()));
 			hs.setKickers(kickers);
@@ -443,10 +443,12 @@ public class Hand {
 			bHandCheck =true;
 			hs.setHandStrength(eHandStrength.Pair.getHandStrength());
 			hs.setHiHand(h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank().getiRankNbr());
-			hs.setLoHand(h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank().getiRankNbr());			
+			hs.setLoHand(0);
 			ArrayList<Card> kickers = new ArrayList<Card>();
 			kickers.add(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()));
 			kickers.add(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()));
+			kickers.add(h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()));
+
 			hs.setKickers(kickers);
 		}
 		return bHandCheck;
