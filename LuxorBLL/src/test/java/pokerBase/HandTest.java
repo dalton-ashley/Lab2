@@ -152,20 +152,63 @@ public class HandTest {
 		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.KING);
 	}	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@Test
+	public void TestIsHandFullHouse() {
+
+		HandScore hs = new HandScore();
+		ArrayList<Card> FullHouse = new ArrayList<Card>();
+		FullHouse.add(new Card(eSuit.DIAMONDS, eRank.ACE, 0));
+		FullHouse.add(new Card(eSuit.CLUBS, eRank.ACE, 0));
+		FullHouse.add(new Card(eSuit.HEARTS, eRank.KING, 0));
+		FullHouse.add(new Card(eSuit.SPADES, eRank.KING, 0));
+		FullHouse.add(new Card(eSuit.CLUBS, eRank.KING, 0));
+
+		Hand h = new Hand();
+		h = SetHand(FullHouse, h);
+
+		boolean bActualIsHandFullHouse = Hand.isHandFullHouse(h, hs);
+		boolean bExpectedIsHandFullHouse = true;
+
+		// Did this evaluate to Four of a Kind?
+		assertEquals(bActualIsHandFullHouse, bExpectedIsHandFullHouse);
+		// Was the four of a kind an Ace?
+		assertEquals(hs.getHiHand(), eRank.ACE.getiRankNbr());
+		// FOAK has one kicker. Was it a Club?
+		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteSuit(), eSuit.DIAMONDS);
+		// FOAK has one kicker. Was it a King?
+		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.ACE);
+	}
+	@Test
+	public void TestFullHouseEval() {
+
+		ArrayList<Card> FullHouse = new ArrayList<Card>();
+		FullHouse.add(new Card(eSuit.DIAMONDS, eRank.ACE, 0));
+		FullHouse.add(new Card(eSuit.CLUBS, eRank.ACE, 0));
+		FullHouse.add(new Card(eSuit.HEARTS, eRank.KING, 0));
+		FullHouse.add(new Card(eSuit.SPADES, eRank.KING, 0));
+		FullHouse.add(new Card(eSuit.CLUBS, eRank.KING, 0));
+
+		Hand h = new Hand();
+		h = SetHand(FullHouse, h);
+
+		try {
+			h = Hand.EvaluateHand(h);
+		} catch (HandException e) {
+			e.printStackTrace();
+			fail("TestFullHouse failed");
+		}
+		HandScore hs = h.getHandScore();
+		boolean bActualIsHandFullHouse = Hand.isHandFullHouse(h, hs);
+		boolean bExpectedIsHandFullHouse = true;
+
+		// Did this evaluate to Four of a Kind?
+		assertEquals(bActualIsHandFullHouse, bExpectedIsHandFullHouse);
+		// Was the four of a kind an Ace?
+		assertEquals(hs.getHiHand(), eRank.ACE.getiRankNbr());
+		// FOAK has one kicker. Was it a Club?
+		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteSuit(), eSuit.DIAMONDS);
+		// FOAK has one kicker. Was it a King?
+		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.ACE);
+	}
+
 }
